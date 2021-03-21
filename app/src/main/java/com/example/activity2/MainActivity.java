@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     //Deklarasi variable untuk menyimpan email dan password
     String nama, password;
 
+    String correct_edemail = "admin@gmail.com";
+    String correct_edpassword = "123";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,55 +55,60 @@ public class MainActivity extends AppCompatActivity {
                 //mengeset password yang benar
                 String pass = "123";
 
-                //mengecek apakah edittext email dan password terdapat isi atau tidak
-                if (nama.isEmpty() || password.isEmpty()) {
-                    //membuat variabel toast dan menampilkan "edittext tidak boleh kosong"
-                    Toast t = Toast.makeText(getApplicationContext(),
-                            "Email dan password wajib diisi!!!",
-                            Toast.LENGTH_LONG);
-                    //menampilkan toast
-                    t.show();
-                } else {
+                //Memvalidasi input
+                if (TextUtils.isEmpty(edemail.getText().toString()) || TextUtils.isEmpty(edpassword.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "Email dan Password Salah", Toast.LENGTH_LONG).show();
+                } else if (edemail.getText().toString().equals(correct_edemail)) {
+                    //check password
+                    if (edpassword.getText().toString().equals(correct_edpassword)) {
+                        Toast.makeText(MainActivity.this, "Login Sukses", Toast.LENGTH_LONG).show();
 
-                    //mengecek apakah isi dari email dan password sudah sama dengan email dan
-                    // password yang sudah diset
-                    if (nama.equals(email) && password.equals(pass)) {
-                        //membuat variabel toast dan menampilkan pesan "Login sukses"
-                        Toast t = Toast.makeText(getApplicationContext(),
-                                "Login Sukses",
+                    } else {
+                        Toast.makeText(MainActivity.this, "Password Salah", Toast.LENGTH_LONG).show();
+                    }
+
+                } else {
+                    Toast.makeText(MainActivity.this, "Email Salah", Toast.LENGTH_LONG).show();
+                }
+
+                //mengecek apakah isi dari email dan password sudah sama dengan email dan
+                // password yang sudah diset
+                if (nama.equals(email) && password.equals(pass)) {
+                    //membuat variabel toast dan menampilkan pesan "Login sukses"
+                    Toast t = Toast.makeText(getApplicationContext(),
+                            "email anda: " + nama + "dan password anda: " + password + "",
                                 Toast.LENGTH_LONG);
 
-                        //menampilkan toast
-                        t.show();
+                    //menampilkan toast
+                    t.show();
 
-                        //membuat objek bundle
-                        Bundle b = new Bundle();
+                    //membuat objek bundle
+                    Bundle b = new Bundle();
 
-                        //memasukkan value dari variabel nama dengan kunci "a"
-                        // dan dimasukkan kedalam bundle
-                        b.putString("a", nama.trim());
+                    //memasukkan value dari variabel nama dengan kunci "a"
+                    // dan dimasukkan kedalam bundle
+                    b.putString("a", nama.trim());
 
-                        //memasukkan value dari variabel password dengan kunci "b"
-                        // dan dimasukkan kedalam bundle
-                        b.putString("b", password.trim());
+                    //memasukkan value dari variabel password dengan kunci "b"
+                    // dan dimasukkan kedalam bundle
+                    b.putString("b", password.trim());
 
-                        //membuat objek intent berpindah activity dari mainactivity ke ActivityHasil
-                        Intent i = new Intent(getApplicationContext(), ActivityHasil.class);
+                    //membuat objek intent berpindah activity dari mainactivity ke ActivityHasil
+                    Intent i = new Intent(getApplicationContext(), ActivityHasil.class);
 
-                        //memasukkan bundle kedalam intent untuk dikirimkan ke ActivityHasil
-                        i.putExtras(b);
+                    //memasukkan bundle kedalam intent untuk dikirimkan ke ActivityHasil
+                    i.putExtras(b);
 
-                        //berpindah ke ActivityHasil
-                        startActivity(i);
-                    } else {
-                        //membuat variabel dengan toast dan membuat toast dan menampilkan pesan "Login gagal"
+                    //berpindah ke ActivityHasil
+                    startActivity(i);
+                } else {
+                    //membuat variabel dengan toast dan membuat toast dan menampilkan pesan "Login gagal"
 
-                        Toast t = Toast.makeText(getApplicationContext(),
-                                "Login Gagal", Toast.LENGTH_LONG);
+                    Toast t = Toast.makeText(getApplicationContext(),
+                            "Login Gagal", Toast.LENGTH_LONG);
 
-                        //menampilkan toast
-                        t.show();
-                    }
+                    //menampilkan toast
+                    t.show();
                 }
             }
         });
