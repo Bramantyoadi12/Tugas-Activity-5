@@ -20,7 +20,8 @@ public class ActivityHasil extends AppCompatActivity {
         //Menghubungkan variabel txPassword dengan komponen Textview pada Layout
         txPassword = findViewById(R.id.tvPassword);
 
-        //membuat objek bundle dan mengambil data yang dikirim dari activity sebelumnya
+        //mendeklarasikan variabel bundle yang akan digunakan untuk mengambil
+        //pesan yang dikirimkan melalui method intent
         Bundle bundle = getIntent().getExtras();
 
         //membuat variabel string yang digunakan untuk menyimpan data yang
