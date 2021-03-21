@@ -21,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
     //Deklarasi variable untuk menyimpan email dan password
     String nama, password;
 
-    String correct_edemail = "admin@gmail.com";
-    String correct_edpassword = "123";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,26 +46,62 @@ public class MainActivity extends AppCompatActivity {
                 //menyimpan input user di edittext password kedalam variable password
                 password = edpassword.getText().toString();
 
-                //validasi input
-                if (TextUtils.isEmpty(edemail.getText().toString()) || TextUtils.isEmpty(edpassword.getText().toString())) {
-                    Toast.makeText(MainActivity.this,"Email dan Password Salah",Toast.LENGTH_LONG).show();
-                }else if(edemail.getText().toString().equals(correct_edemail)){
-                    //check password
-                    if(edpassword.getText().toString().equals(correct_edpassword)){
-                        Toast.makeText(MainActivity.this,"Login Sukses",Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(MainActivity.this,"Password Salah", Toast.LENGTH_LONG).show();
+                //mengeset email yang benar
+                String email = "admin@gmail.com";
+
+                //mengeset password yang benar
+                String pass = "123";
+
+                //mengecek apakah edittext email dan password terdapat isi atau tidak
+                if (nama.isEmpty() || password.isEmpty()) {
+                    //membuat variabel toast dan menampilkan "edittext tidak boleh kosong"
+                    Toast t = Toast.makeText(getApplicationContext(),
+                            "Email dan password wajib diisi!!!",
+                            Toast.LENGTH_LONG);
+                    //menampilkan toast
+                    t.show();
+                } else {
+
+                    //mengecek apakah isi dari email dan password sudah sama dengan email dan
+                    // password yang sudah diset
+                    if (nama.equals(email) && password.equals(pass)) {
+                        //membuat variabel toast dan menampilkan pesan "Login sukses"
+                        Toast t = Toast.makeText(getApplicationContext(),
+                                "Login Sukses",
+                                Toast.LENGTH_LONG);
+
+                        //menampilkan toast
+                        t.show();
+
+                        //membuat objek bundle
+                        Bundle b = new Bundle();
+
+                        //memasukkan value dari variabel nama dengan kunci "a"
+                        // dan dimasukkan kedalam bundle
+                        b.putString("a", nama.trim());
+
+                        //memasukkan value dari variabel password dengan kunci "b"
+                        // dan dimasukkan kedalam bundle
+                        b.putString("b", password.trim());
+
+                        //membuat objek intent berpindah activity dari mainactivity ke ActivityHasil
+                        Intent i = new Intent(getApplicationContext(), ActivityHasil.class);
+
+                        //memasukkan bundle kedalam intent untuk dikirimkan ke ActivityHasil
+                        i.putExtras(b);
+
+                        //berpindah ke ActivityHasil
+                        startActivity(i);
+                    } else {
+                        //membuat variabel dengan toast dan membuat toast dan menampilkan pesan "Login gagal"
+
+                        Toast t = Toast.makeText(getApplicationContext(),
+                                "Login Gagal", Toast.LENGTH_LONG);
+
+                        //menampilkan toast
+                        t.show();
                     }
-                }else{
-                    Toast.makeText(MainActivity.this,"Email Salah",Toast.LENGTH_LONG).show();
                 }
-
-                //membuat variable toast dan membuat toast dengan menambahkan variable nama dan password
-                Toast t = Toast.makeText(getApplicationContext(),
-                        "email anda: "+ nama +" dan Password anda: "+ password +"", Toast.LENGTH_LONG);
-
-                //menampilkan toast
-                t.show();
             }
         });
     }
