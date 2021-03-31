@@ -19,7 +19,7 @@ public class Home_Activity extends AppCompatActivity implements PopupMenu.OnMenu
     private ListView list;
 
     //Memanggil class ListviewAdapter dan diinialisasi menjadi variabel adapter
-    private ListView adapter;
+    private ListViewAdapter adapter;
 
     //Deklarasi array untuk menyimpan nama
     String[] listNama;
